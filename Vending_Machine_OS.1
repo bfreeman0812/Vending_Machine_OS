@@ -1,0 +1,142 @@
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <fstream>
+#include <iomanip>
+#include <math.h>
+#include <stdlib.h>
+#include <sstream>
+
+using namespace std;
+
+class NormalMode {
+public:
+	string command;
+
+	void helpCommand() {
+		cout << "Commands in Normal Mode are:\n";
+		cout << "Coin <value> where value is 5 10 25 nickel dime quarter";
+		cout << "\nBill <value> where value is 1 5\n";
+		cout << "Cola <value> where value is coke pepsi rc jolt faygo";
+		cout << "Exit\n";
+		cout << "Unlock [password]\n";
+	}
+	void coinCommand() {
+
+	}
+	void colaCommand() {
+
+	}
+	void exitCommand() {
+		exit(0);
+	}
+	void unlockCommand() {
+
+	}
+
+
+
+
+};
+class ServiceMode {
+public:
+
+	void printStart() {
+		cout << "Please Enter a command and its parameter\n(type Help for a list of commands, EXIT to Quit)";
+		cout << "\n[SERVICE MODE]>";
+		return;
+	}
+	void helpCommand() {
+		cout << "Commands in Service Mode are:\n";
+		cout << "Status";
+		cout << "\nAdd [COLA|CUPS] brand <quantity>\n";
+		cout << "Add|Remove [Coins|Bills] <denomination> <quantity>";
+		cout << "\nExit\n";
+		cout << "Lock [password]\n";
+		return;
+	}
+	void statusCommand() {
+
+	}
+	void exitCommand() {
+		exit(0);
+	}
+	void lockCommand() {
+
+	}
+
+
+
+};
+
+class Inventory {
+public:
+	int coke = 0;
+	int pepsi = 0;
+	int rc = 0;
+	int jolt = 0;
+	int faygo = 0;
+	//enum coin{nickel=5, dime=10, quarter=25};
+	int oneBill = 0;
+	int fiveBill = 0;
+	int nickel = 0;
+	int dime = 0;
+	int quarter = 0;
+	int cups = 0;
+
+
+
+
+
+
+
+
+
+};
+//istream& getline (istream& is, string& str);
+
+
+//void serviceMode(void);
+
+
+int main() {
+	ServiceMode obj1;
+
+	string command = "";
+	string cmd1, cmd2, cmd3, cmd4;
+	obj1.printStart();
+	getline(cin, command);
+	
+	istringstream ss(command);
+	
+	ss >> cmd1 >> cmd2 >> cmd3;
+	
+
+	if (cmd1 == "Help" || "help" || "HELP") {
+		obj1.helpCommand();
+	}
+	else if (cmd1 == "Add" || "add" || "ADD") {
+		
+	}
+	else if (cmd1 == "Lock" || "lock" || "LOCK") {
+		string password = cmd2;
+		cout << cmd1 << endl << cmd2 << endl << cmd3;
+
+	}
+	else if (command == "Exit" || "exit" || "EXIT") {
+		obj1.exitCommand();
+	}
+
+	else{
+		cout << "Invalid command, use Help command to see list of valid commands.";
+	}
+
+
+	//string command = "";
+//	NormalMode command;
+	//NormalMode help;
+
+
+}
+
+		
