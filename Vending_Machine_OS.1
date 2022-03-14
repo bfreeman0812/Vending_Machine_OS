@@ -8,29 +8,6 @@
 #include <sstream>
 
 using namespace std;
-//class Inventory {
-//public:
-//	int numberOfFaygo = 0;
-//	int numberOfCoke = 0;
-//	int numberOfPepsi = 0;
-//	int numberOfRC = 0;
-//	int numberOfJolt = 0;
-//	//enum coin{nickel=5, dime=10, quarter=25};
-//	int oneBill = 0;
-//	int fiveBill = 0;
-//	int nickel = 0;
-//	int dime = 0;
-//	int quarter = 0;
-//	int cups = 0;
-//
-//
-//	void setInventory() {
-//		
-//
-//	}
-//
-//};
-
 
 class ServiceMode {
 public:
@@ -43,7 +20,7 @@ public:
 	string add2 = "";
 	string addcmd1;
 	string mode;
-	int addcmd2;
+	int addcmd2 = 0;
 	int colaCupInput = 0;
 	int cupQuantity = 0;
 	float totalMoneyAmount = 0;
@@ -58,7 +35,7 @@ public:
 	void printStart() {
 		cout << "\nPlease Enter a command and its parameter\n(type Help for a list of commands, EXIT to Quit)";
 		cout << "\n[SERVICE MODE]>";
-		
+
 		return;
 	}
 	void helpCommand() {
@@ -71,7 +48,7 @@ public:
 		return;
 	}
 	void statusCommand() {
-		totalMoneyAmount = (numberNickels*.05) + (numberDimes*.1) + (numberQuarters*.25) + (numberFiveDollarBills*5.00) + (numberOneDollarBills*1.00);
+		totalMoneyAmount = (numberNickels * .05) + (numberDimes * .1) + (numberQuarters * .25) + (numberFiveDollarBills * 5.00) + (numberOneDollarBills * 1.00);
 		cout << "\nAmount Deposited= " << totalMoneyAmount;
 		cout << "\ntotal One Dollar Bills= " << numberOneDollarBills;
 		cout << "\ntotal Five Dollar Bills= " << numberFiveDollarBills;
@@ -214,12 +191,12 @@ public:
 class NormalMode : public ServiceMode {
 public:
 	int userNickels = 0, userDimes = 0, userDollarBills = 0, userQuarters = 0, userFiveBills = 0;
-	int amountInserted = 0;
+	float amountInserted = 0;
 
 	void printStart() {
 		cout << "Please Enter a command and its parameter\n(type Help for a list of commands, EXIT to Quit)";
 		cout << "\n[NORMAL MODE]>";
-		
+
 		return;
 	}
 
@@ -235,14 +212,17 @@ public:
 		if (cmd2 == "nickel" || cmd2 == "NICKEL" || cmd2 == "Nickel" || cmd2 == "5") {
 			userNickels++;
 			numberNickels++;
+			amountInserted += .05;
 		}
 		else if (cmd2 == "dime" || cmd2 == "Dime" || cmd2 == "DIME" || cmd2 == "10") {
 			userDimes++;
 			numberDimes++;
+			amountInserted += .10;
 		}
 		else if (cmd2 == "quarter" || cmd2 == "QUARTER" || cmd2 == "Quarter" || cmd2 == "25") {
 			userQuarters++;
 			numberQuarters++;
+			amountInserted += .25;
 		}
 
 	}
@@ -251,10 +231,12 @@ public:
 		if (cmd2 == "5") {
 			userFiveBills++;
 			numberFiveDollarBills++;
+			amountInserted += 5;
 		}
 		else if (cmd2 == "1") {
 			userDollarBills++;
 			numberOneDollarBills++;
+			amountInserted += 1;
 		}
 		else {
 			cout << "Invalid bill value type, try again";
@@ -266,25 +248,25 @@ public:
 			cout << "Dispensing Coke";
 			numberOfCoke--;
 		}
-		else if (amountInserted >= .75&& cmd2 == "pepsi" &&numberOfPepsi > 0 && cupQuantity > 0) {
+		else if (amountInserted >= .75 && cmd2 == "pepsi" && numberOfPepsi > 0 && cupQuantity > 0) {
 			cout << "Dispensing Pepsi";
 			numberOfPepsi--;
 		}
-		else if (amountInserted >= .75&& cmd2 == "rc"&&numberOfPepsi > 0 && cupQuantity > 0) {
+		else if (amountInserted >= .75 && cmd2 == "rc" && numberOfPepsi > 0 && cupQuantity > 0) {
 			cout << "Dispensing RC";
 			numberOfRC--;
 		}
-		else if (amountInserted >= .75&& cmd2 == "jolt"&&numberOfJolt > 0 && cupQuantity > 0) {
+		else if (amountInserted >= .75 && cmd2 == "jolt" && numberOfJolt > 0 && cupQuantity > 0) {
 			cout << "Dispensing Jolt";
 			numberOfJolt--;
 		}
-		else if (amountInserted >= .75&& cmd2 == "faygo"&&numberOfFaygo > 0 && cupQuantity > 0) {
+		else if (amountInserted >= .75 && cmd2 == "faygo" && numberOfFaygo > 0 && cupQuantity > 0) {
 
 			cout << "Dispensing Faygo";
 			numberOfFaygo--;
 
 		}
-		else cout << "insufficient change or cola.";
+		else cout << "insufficient change, cola or cups.";
 	}
 	void exitCommand() {
 		exit(0);
@@ -298,73 +280,77 @@ int main() {
 	string command = "";
 	string mode = "Service";
 	string cmd1, cmd2, cmd3, cmd4;
-	while (mode == "Service") {
+	
+	while (true) {
+		while (mode == "Service") {
 
-		obj1.printStart();
-		getline(cin, command);
+			obj1.printStart();
+			getline(cin, command);
 
-		istringstream ss(command);
+			istringstream ss(command);
 
-		ss >> cmd1 >> cmd2 >> cmd3;
+			ss >> cmd1 >> cmd2 >> cmd3;
 
 
-		if (cmd1 == "Help" || cmd1 == "HELP" || cmd1 == "help") {
-			obj1.helpCommand();
-		}
-		else if (cmd1 == "Status" || cmd1 == "STATUS" || cmd1 == "status") {
-			obj1.statusCommand();
-		}
-		else if (cmd1 == "Add" || cmd1 == "add" || cmd1 == "ADD") {
-			obj1.addCommand(cmd2);
-		}
-		else if (cmd1 == "Remove" || cmd1 == "remove" || cmd1 == "REMOVE") {
-			obj1.removeCommand(cmd2);
-		}
-		else if (cmd1 == "Lock" || cmd1 == "LOCK" || cmd1 == "lock") {
-			password = cmd2;
-			obj1.lockCommand();
-			mode = "Normal";
-		}
-		else if (command == "Exit" || command == "exit" || command == "EXIT") {
-			obj1.exitCommand();
-		}
-		else {
-			cout << "Invalid command, use Help command to see list of valid commands.";
-		}
-	}
-	while (mode == "Normal") {
-		obj2.printStart();
-		getline(cin, command);
-
-		istringstream ss(command);
-
-		ss >> cmd1 >> cmd2 >> cmd3;
-
-		if (cmd1 == "Help" || cmd1 == "HELP" || cmd1 == "help") {
-			obj2.helpCommand();
-		}
-		else if (cmd1 == "COIN" || cmd1 == "Coin" || cmd1 == "coin") {
-			obj2.coinCommand(cmd2);
-		}
-		else if (cmd1 == "BILL" || cmd1 == "bill" || cmd1 == "Bill") {
-			obj2.billCommand(cmd2);
-		}
-		else if (cmd1 == "COLA" || cmd1 == "cola" || cmd1 == "Cola") {
-			obj2.colaCommand(cmd2);
-		}
-		else if (cmd1 == "Unlock" || cmd1 == "unlock" || cmd1 == "Unlock") {
-			if (cmd2 == password) {
-				mode = "Service";
+			if (cmd1 == "Help" || cmd1 == "HELP" || cmd1 == "help") {
+				obj1.helpCommand();
+			}
+			else if (cmd1 == "Status" || cmd1 == "STATUS" || cmd1 == "status") {
+				obj1.statusCommand();
+			}
+			else if (cmd1 == "Add" || cmd1 == "add" || cmd1 == "ADD") {
+				obj1.addCommand(cmd2);
+			}
+			else if (cmd1 == "Remove" || cmd1 == "remove" || cmd1 == "REMOVE") {
+				obj1.removeCommand(cmd2);
+			}
+			else if (cmd1 == "Lock" || cmd1 == "LOCK" || cmd1 == "lock") {
+				password = cmd2;
+				obj1.lockCommand();
+				mode = "Normal";
+			}
+			else if (command == "Exit" || command == "exit" || command == "EXIT") {
+				obj1.exitCommand();
 			}
 			else {
-				cout << "invalid password";
+				cout << "Invalid command, use Help command to see list of valid commands.";
 			}
 		}
-		else if (cmd1 == "EXIT"|| cmd1 == "exit" || cmd1 == "Exit") {
-			obj2.exitCommand();
-		}
-		else {
-			cout << "invalid command, use help to show all commands";
+		while (mode == "Normal") {
+			obj2.printStart();
+			getline(cin, command);
+
+			istringstream ss(command);
+
+			ss >> cmd1 >> cmd2 >> cmd3;
+
+			if (cmd1 == "Help" || cmd1 == "HELP" || cmd1 == "help") {
+				obj2.helpCommand();
+			}
+			else if (cmd1 == "COIN" || cmd1 == "Coin" || cmd1 == "coin") {
+				obj2.coinCommand(cmd2);
+			}
+			else if (cmd1 == "BILL" || cmd1 == "bill" || cmd1 == "Bill") {
+				obj2.billCommand(cmd2);
+			}
+			else if (cmd1 == "COLA" || cmd1 == "cola" || cmd1 == "Cola") {
+				obj2.colaCommand(cmd2);
+			}
+			else if (cmd1 == "Unlock" || cmd1 == "unlock" || cmd1 == "Unlock") {
+				if (cmd2 == password) {
+					mode = "Service";
+					
+				}
+				else {
+					cout << "invalid password";
+				}
+			}
+			else if (cmd1 == "EXIT" || cmd1 == "exit" || cmd1 == "Exit") {
+				obj2.exitCommand();
+			}
+			else {
+				cout << "invalid command, use help to show all commands";
+			}
 		}
 	}
 
