@@ -144,7 +144,7 @@ public:
 
 	}
 	void removeCommand(string cmd2) {
-		if (cmd2 == "COINS") {
+		if (cmd2 == "COINS" || cmd2 == "coins" || cmd2 == "Coins") {
 			cout << "Enter type and amount of coins in the form, <denomination> <quantity>";
 			getline(cin, add);
 			istringstream ss(add);
@@ -163,7 +163,7 @@ public:
 				cout << "Invalid coin type, try again";
 			}
 		}
-		else if (cmd2 == "BILLS") {
+		else if (cmd2 == "BILLS" || cmd2 == "Bills" || cmd2 == "bills") {
 			cout << "Enter type and amount of bills in the form, <denomination> <quantity>";
 			getline(cin, add);
 			istringstream ss(add);
